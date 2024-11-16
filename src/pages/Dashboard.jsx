@@ -7,6 +7,7 @@ import BarChartComponent from "../components/BarChartComponent";
 import PieChartComponent from "../components/PieChartComponent";
 import RecentTransactions from "../components/RecentTransactions";
 import supabase from "../components/supabaseClient";
+import AiTipsGenerator from '../components/AiTipGenerator';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -175,24 +176,7 @@ const Dashboard = () => {
   }, [user, categoryMap]);
   
 
-  // Define the missing `generateTips` function here
-  const generateTips = (data) => {
-    const tips = [];
-    const spendingRatio = data.totalExpenses / data.totalIncome;
 
-    if (spendingRatio > 0.8) {
-      tips.push("Your expenses are high relative to income. Consider reviewing non-essential spending.");
-    }
-    if (data.categories.length > 0) {
-      const highestCategory = [...data.categories].sort((a, b) => b.value - a.value)[0];
-      tips.push(`Highest spending category is ${highestCategory.name}. Consider setting a budget for this category.`);
-    }
-    if (data.averageMonthlyExpenses > data.averageMonthlyIncome) {
-      tips.push("Monthly expenses exceed income. Consider creating a savings plan.");
-    }
-
-    return tips;
-  };
 
   if (loading) {
     return <div className="flex-1 pl-10 pt-10 p-6 bg-gray-100">Loading...</div>;
@@ -214,7 +198,10 @@ const Dashboard = () => {
             expenses={dashboardData.totalExpenses}
             className="bg-white rounded-lg p-6"
           />
-          <SpendingTips tips={generateTips(dashboardData)} className="bg-white rounded-lg p-6" showMoreLink={true} />
+          <AiTipsGenerator
+            userData={dashboardData}
+            className="bg-white rounded-lg p-6"
+          />
         </div>
 
         <div className="bg-white rounded-lg lg:row-span-2 lg:col-span-1 flex flex-col space-y-6">

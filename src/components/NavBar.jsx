@@ -118,20 +118,7 @@ const NavBar = () => {
         </ul>
 
         <div className="mt-6 pr-2 pl-1">
-          <button
-            className="flex items-center justify-start w-full gap-x-4 p-2 rounded-xl bg-blue-600 text-white hover:bg-blue-900 transition-all duration-300"
-            onClick={() => setShowCameraCapture(true)}  // Show CameraCapture popup
-          >
-            <ReceiptIcon fontSize="large" />
-            {isOpen && <span className="font-bold">Scan Receipt with AI</span>}
-          </button>
-          <button
-            className="flex items-center justify-start w-full gap-x-4 p-2 mt-2 rounded-xl bg-blue-200 text-blue-600 hover:bg-blue-400 transition-all duration-300"
-            onClick={() => setShowInvoiceProcessor(true)}
-          >
-            <UploadIcon fontSize="large" />
-            {isOpen && <span>Upload Document</span>}
-          </button>
+        
         
           <MpesaPayment isOpen={isOpen} />
         
