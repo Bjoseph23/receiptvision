@@ -1,0 +1,14 @@
+{
+  "build": {
+    "env": {
+      "PYTHON": "/usr/local/bin/python3",
+      "NODE_ENV": "production"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
