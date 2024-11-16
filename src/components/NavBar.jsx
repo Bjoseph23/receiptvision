@@ -13,6 +13,8 @@ import InvoiceProcessor from "./InvoiceProcessor";
 import LogoutPopup from "./LogoutPopup";
 import CameraCapture from "../components/CameraCapture";  
 import { useAuth } from "../contexts/AuthContext";
+import PaymentsIcon from '@mui/icons-material/Payments';
+import MpesaPayment from "../components/MpesaPayment";
 import supabase from "../components/supabaseClient";
 
 const NavBar = () => {
@@ -71,6 +73,7 @@ const NavBar = () => {
     { id: "goals", label: "Financial Goals", icon: <ReceiptIcon fontSize="large" />, path: "/goals" },
     { id: "analytics", label: "Revenue Analytics", icon: <BarChartIcon fontSize="large" />, path: "/analytics" },
     { id: "terms", label: "Privacy Policy", icon: <PolicyIcon fontSize="large" />, path: "/terms" },
+   
   ];
 
   return (
@@ -122,7 +125,16 @@ const NavBar = () => {
             <ReceiptIcon fontSize="large" />
             {isOpen && <span className="font-bold">Scan Receipt with AI</span>}
           </button>
-
+          <button
+            className="flex items-center justify-start w-full gap-x-4 p-2 mt-2 rounded-xl bg-blue-200 text-blue-600 hover:bg-blue-400 transition-all duration-300"
+            onClick={() => setShowInvoiceProcessor(true)}
+          >
+            <UploadIcon fontSize="large" />
+            {isOpen && <span>Upload Document</span>}
+          </button>
+        
+          <MpesaPayment isOpen={isOpen} />
+        
           <button
             className="flex items-center justify-start w-full gap-x-4 p-2 mt-2 rounded-xl bg-blue-200 text-blue-600 hover:bg-blue-400 transition-all duration-300"
             onClick={() => setShowInvoiceProcessor(true)}
@@ -181,6 +193,7 @@ const NavBar = () => {
           <CameraCapture onClose={() => setShowCameraCapture(false)} />  // CameraCapture popup
         </div>
       )}
+      
     </div>
   );
 };
