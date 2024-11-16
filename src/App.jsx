@@ -12,6 +12,7 @@ import TermsAndPolicy from './components/TermsAndPolicy';
 import OneTapComponent from './components/OneTapComponent';
 import GoalsAndTips from './pages/GoalsAndTips';
 import NotFoundPage from './pages/NotFoundPage';
+import ExpenditurePage from './pages/Expenditure'
 
 function App() {
     return (
@@ -60,6 +61,14 @@ function AppContent() {
                         element={
                             <ProtectedRoute>
                                 <Analytics />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/Expenditure"
+                        element={
+                            <ProtectedRoute>
+                                <ExpenditurePage />
                             </ProtectedRoute>
                         }
                     />
