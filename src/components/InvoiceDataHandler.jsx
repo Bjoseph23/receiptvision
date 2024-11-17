@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from "../contexts/AuthContext"; 
-// Make sure this path matches your project structure
 import supabase from './supabaseClient';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -55,7 +54,7 @@ const InvoiceDataHandler = ({ invoiceData, onSuccess, onError }) => {
         .from('income_sources')
         .select('id')
         .eq('name', invoiceData.company)
-        .eq('user_id', user.id)  // Add user_id filter
+        .eq('user_id', user.id)
         .single();
 
       let sourceId;
@@ -68,7 +67,7 @@ const InvoiceDataHandler = ({ invoiceData, onSuccess, onError }) => {
             {
               name: invoiceData.company,
               description: `Income from ${invoiceData.company}`,
-              user_id: user.id  // Add user_id
+              user_id: user.id
             }
           ])
           .select()
@@ -86,7 +85,7 @@ const InvoiceDataHandler = ({ invoiceData, onSuccess, onError }) => {
         .insert([
           {
             source_id: sourceId,
-            user_id: user.id,  // Add user_id
+            user_id: user.id,
             amount: invoiceData.total,
             description: `Invoice #${invoiceData.invoice_number} from ${invoiceData.company} - Customer: ${invoiceData.customer}`,
             is_recurring: false,
@@ -143,26 +142,32 @@ const InvoiceDataHandler = ({ invoiceData, onSuccess, onError }) => {
       </div>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+        <DialogContent className="sm:max-w-md bg-white">
+          <DialogHeader className="space-y-3">
+            <DialogTitle className="flex items-center gap-2 text-gray-800 text-xl">
               {modalContent.type === 'success' ? (
-                <CheckCircle2 className="h-5 w-5 text-green-500" />
+                <>
+                  <CheckCircle2 className="h-6 w-6 text-green-500" />
+                  <span className="font-semibold">{modalContent.title}</span>
+                </>
               ) : (
-                <XCircle className="h-5 w-5 text-red-500" />
+                <>
+                  <XCircle className="h-6 w-6 text-red-500" />
+                  <span className="font-semibold">{modalContent.title}</span>
+                </>
               )}
-              {modalContent.title}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-gray-600 text-base">
               {modalContent.message}
             </DialogDescription>
           </DialogHeader>
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-6">
             <Button 
               onClick={handleCloseModal}
-              className={modalContent.type === 'success' ? 
-                "bg-green-500 hover:bg-green-600" : 
-                "bg-blue-500 hover:bg-blue-600"
+              className={
+                modalContent.type === 'success' 
+                  ? "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-base font-medium" 
+                  : "bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg text-base font-medium"
               }
             >
               {modalContent.type === 'success' ? 'Done' : 'Close'}
